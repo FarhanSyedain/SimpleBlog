@@ -1,0 +1,82 @@
+{%extends 'main.html'%}
+{%load static%}
+{%block content%}
+<header class="header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg">
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="index.html"><img src="../../../static/img/core-img/logo.png" alt="Logo"></a>
+                    <!-- Navbar Toggler -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#worldNav" aria-controls="worldNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <!-- Navbar -->
+                    <div class="collapse navbar-collapse" id="worldNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{%url 'home_page'%}">Home</a>
+                            </li>
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catagory</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'category_page' 'civics'%}">Civics</a>
+                                    <a class="dropdown-item" href="{% url 'category_page' 'geography'%}">Geography</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tag</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'tag_page' 'water'%}">Water</a>
+                                    <a class="dropdown-item" href="{% url 'tag_page' 'programming'%}">Programming</a>
+                                </div>
+                            </li>
+                    
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{%url 'contact_page'%}">Contact</a>
+                            </li>
+                            
+                            {%if request.user.is_authenticated%}
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                    <a class="dropdown-item" href="">Settings</a>
+                                    {%if is_staff%}
+                                        <a class="dropdown-item" href="{%url 'my_posts' %}">My Posts</a>
+                                    {%endif%}
+                                </div>
+                            </li>
+                            {%else%}
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                                    <a class="dropdown-item" href="{% url 'register'%}">Register</a>
+                                </div>
+                            </li>
+                            {%endif%}
+                        </ul>
+                        <!-- Search Form  -->
+                        <div id="search-wrapper">
+                            <form id="form___">
+                                <input type="text" id="search" placeholder="Search something...">
+                                <div id="close-icon"></div>
+                                <input class="d-none" type="submit" value="">
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<div style="height: 80px;" class="div bg-dark mb-2">
+
+</div>
+<!-- ***** Header Area End ***** -->
+<div style="width:1000px;min-height:calc(100vh - 230px);word-break:break-all;" class="container-fluid">
+    {{user.about_me|safe}}
+</div>
+
+
+{%endblock%}

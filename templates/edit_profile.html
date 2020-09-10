@@ -1,0 +1,102 @@
+{%extends 'main.html'%}
+{%load static%}
+{% load crispy_forms_tags %}
+{%block content%}
+<header class="header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg">
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="index.html"><img src="../../../static/img/core-img/logo.png" alt="Logo"></a>
+                    <!-- Navbar Toggler -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#worldNav" aria-controls="worldNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <!-- Navbar -->
+                    <div class="collapse navbar-collapse" id="worldNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{%url 'home_page'%}">Home</a>
+                            </li>
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catagory</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'category_page' 'civics'%}">Civics</a>
+                                    <a class="dropdown-item" href="{% url 'category_page' 'geography'%}">Geography</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tag</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'tag_page' 'water'%}">Water</a>
+                                    <a class="dropdown-item" href="{% url 'tag_page' 'programming'%}">Programming</a>
+                                </div>
+                            </li>
+                    
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{%url 'contact_page'%}">Contact</a>
+                            </li>
+                            
+                            {%if request.user.is_authenticated%}
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                    <a class="dropdown-item" href="">Settings</a>
+                                    {%if is_staff%}
+                                        <a class="dropdown-item" href="{%url 'my_posts' %}">My Posts</a>
+                                    {%endif%}
+                                </div>
+                            </li>
+                            {%else%}
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                                    <a class="dropdown-item" href="{% url 'register'%}">Register</a>
+                                </div>
+                            </li>
+                            {%endif%}
+                        </ul>
+                        <!-- Search Form  -->
+                        <div id="search-wrapper">
+                            <form id="form___">
+                                <input type="text" id="search" placeholder="Search something...">
+                                <div id="close-icon"></div>
+                                <input class="d-none" type="submit" value="">
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<div style="height: 80px;" class="div bg-dark mb-2">
+</div>
+
+<div style="min-height: 100vh; width:fit-content" class="container-fluid p-2">
+                               
+            <form autocomplete="off" action="" method="POST" class="container">
+                {%csrf_token%}
+                <input required type="username" name="username" value="{{username}}" class="form-control mb-2" placeholder="Username">
+                {%if incorrect%}
+                    <p>Username already exists</p>
+                {%endif%}
+
+                <input type="username" name="name" value="{{name}}" class="form-control mb-2" placeholder="Full Name">
+                <input autocomplete="new-password" type="password" name="new_password1" placeholder="Set New Password" class="form-control mb-2">
+                <input type="password" name="new_password2" placeholder="Confirm New Password" class="form-control mb-2">
+
+                {%if not staff_form is None%}
+                    {{staff_form.media}}
+                    {{staff_form|crispy}}
+                {%endif%}
+
+                <button style="width:100%"  type="submit" class="btn btn-outline-dark">Update Profile</button>
+                <button style="width:100%" onclick="window.location = '../'"  type="button" class="btn btn-outline-dark">Home Page</button>
+
+            </form>
+
+</div>
+
+{%endblock%}

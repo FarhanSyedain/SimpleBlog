@@ -1,0 +1,241 @@
+{%extends 'main.html' %}
+{%load static%}
+{%block content%}
+
+<script>
+    var location__ = '../../auth/login'
+</script>
+<!-- Preloader Start -->
+    <div id="preloader">
+        <div class="preload-content">
+            <div id="world-load"></div>
+        </div>
+    </div>
+    <!-- Preloader End -->
+
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <!-- Logo -->
+                        <a class="navbar-brand" href="{%url 'home_page' %}"><img src="../static/img/core-img/logo.png" alt="Logo"></a>
+                        <!-- Navbar Toggler -->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#worldNav" aria-controls="worldNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <!-- Navbar -->
+                        <div class="collapse navbar-collapse" id="worldNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{%url 'home_page'%}">Home</a>
+                                </li>
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catagory</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{% url 'category_page' 'civics'%}">Civics</a>
+                                        <a class="dropdown-item" href="{% url 'category_page' 'geography'%}">Geography</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tag</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{% url 'tag_page' 'water'%}">Water</a>
+                                        <a class="dropdown-item" href="{% url 'tag_page' 'programming'%}">Programming</a>
+                                    </div>
+                                </li>
+                        
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="{%url 'contact_page'%}">Contact</a>
+                                </li>
+                                {%if request.user.is_authenticated%}
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                        <a class="dropdown-item" href="{%url 'update_user' %}">Settings</a>
+                                        {%if is_staff%}
+                                        <a class="dropdown-item" href="{%url 'my_posts' %}">My Posts</a>
+                                        {%endif%}
+                                    </div>
+                                </li>
+                                {%else%}
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                                        <a class="dropdown-item" href="{% url 'register'%}">Register</a>
+                                    </div>
+                                </li>
+                                {%endif%}
+                               
+                            </ul>
+                            <!-- Search Form  -->
+                            <div id="search-wrapper">
+                                <form id="form___">
+                                    <input type="text" id="search" placeholder="Search something...">
+                                    <div id="close-icon"></div>
+                                    <input class="d-none" type="submit" value="">
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ********** Hero Area Start ********** -->
+    <div class="hero-area height-600 bg-img background-overlay" style="background-image: url(../static{{blog.thumbnail.url}});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="single-blog-title text-center">
+                        <!-- Catagory -->
+                        <div class="post-cta"><a href="../posts/category/{{blog.category}}">{{blog.category}}</a></div>
+                        <h3>{{blog.title}}</h3>
+                        <br><br>
+                        <h5 style="color:white;width:400px;margin:auto">{{blog.sub_title}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ********** Hero Area End ********** -->
+
+    <div class="main-content-wrapper section-padding-100">
+        <div class="row justify-content-center">
+            <!-- ============= Post Content Area ============= -->
+            <div class="single-blog-content mb-100">
+           
+                <div class="post-content">
+                    <div style="max-width:1600px">
+                        {{blog.body|safe}}
+                    </div>
+                    <ul class="post-tags">
+                        {%for i in blog.tags.all%}
+                        <li><a href="#">{{i}}</a></li>
+                        {%endfor%}
+                    </ul>
+                    <!-- Post Meta -->
+                    <div class="post-meta second-part">
+                        <p><a href="../view/author/{{blog.author.username}}" class="post-author">{{blog.author}}</a> on <a  class="post-date">{{blog.created}}</a></p>
+                        <p> 
+                            {%if follows_author%} 
+                            <button id="follow_unfollow_button" onclick="follow_unfollow_user()" data-current="unfollow"  class="btn btn-sm btn-outline-dark">Un-Follow</button> 
+                            {%else%}
+                            <button id="follow_unfollow_button" onclick="follow_unfollow_user()" data-current="follow" class="btn btn-sm btn-outline-dark">Follow</button> 
+                            {%endif%}
+                            
+                            {%if has_liked%}
+                                <i id="like_unlike_button" onclick="like_this_post()" data-current="liked" class="fa fa-heart text-danger" style="font-size: 20px;"></i></p> 
+                            {%else%}
+                                <i id="like_unlike_button" onclick="like_this_post()" data-current="unreated" class="fa fa-heart" style="font-size: 20px;"></i></p> 
+                            {%endif%}
+
+                    
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <!-- ============== Related Post ============== -->
+            <div class="row">
+                {%for i in featured_blogs%}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Single Blog Post -->
+                    <div class="single-blog-post">
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail">
+                            <img src="../static{{i.thumbnail.url}}" alt="">
+                            <!-- Catagory -->
+                            <div class="post-cta"><a href="../posts/category/{{i.category}}">{{i.category}}</a></div>
+                        </div>
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            <a href="{{i.slug}}" class="headline">
+                                <h5>{{i.title}}</h5>
+                            </a>
+                            <p>{{i.sub_title}}</p>
+                            <!-- Post Meta -->
+                            <div class="post-meta">
+                                <p><a href="../view/author/{{i.author.username}}" class="post-author">{{i.author}}</a> on <a class="post-date">{{i.created}}</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+                
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="post-a-comment-area mt-70">
+                        <h5>Get in Touch</h5>
+                        <!-- Contact Form -->
+                        <form id="post_commen__t" method="POST">
+                        
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="group">
+                                        <input readonly type="name" name="name" id="name" required>
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="group">
+                                        <input readonly type="hidden" name="email" id="email" required>
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group">
+                                        <textarea name="message" id="message" required></textarea>
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>Enter your comment</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    {%if request.user.is_authenticated%}
+                                        <button type="submit" class="btn world-btn">Post comment</button>
+                                    {%else%}
+                                        <button onclick="window.location = location__"  type="button" class="btn world-btn">Post comment</button>
+                                    {%endif%}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-8">
+                    <!-- Comment Area Start -->
+                    <div class="comment_area clearfix mt-70">
+                        <ol id="all_comments">
+          
+          
+                        </ol>
+                    </div>
+                    <div data-loaded="false" id="extra_" class="col-12 mt-2">
+                        <button id="load_more_button" onclick="load_more_comments()" style="margin: auto;display:block;width:200px;text-align:center" class="btn btn-primary">Load More</button>
+                        <h2 id="loading__" style="display: block;text-align:center">Loading</h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<script>
+    var c  = '{{check}}'
+    var post_id = '{{blog.id}}'
+   
+    
+</script>
+
+<br>
+<br><br>
+{%endblock%}

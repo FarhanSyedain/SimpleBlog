@@ -1,0 +1,121 @@
+{%load static%}
+{%load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>World - Blog &amp; Magazine Template</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{%static 'img/core-img/favicon.ico' %}">
+<script>
+    var loc = "{% provider_login_url 'google' %}"
+</script>
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{%static 'style.css' %} ">
+</head>
+<body>
+
+
+
+    <section class="contact-area section-padding-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Contact Form Area -->
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div class="contact-form">
+                
+                        <h5>Register Below</h5>
+                        <!-- Contact Form -->
+                        <form autocomplete="on" action="" method="POST">
+                
+                            {%csrf_token%}
+                            <div class="row">
+                          
+
+                                <div class="col-12 ">
+                                    <div class="group">
+                                        {{form.username}}
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>Enter your username</label>
+                                        {{form.username.errors}}
+                                    </div>
+                                </div>
+                                <div class="col-12 ">
+                                    <div class="group">
+                                        <input type="text" name="name" id="name" required>
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>Enter your email</label>
+                                        {{form.email.errors}}
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group">
+                                        {{form.password1}}
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>Enter your password</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group">
+                                        {{form.password2}}
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>Confirm your password</label>
+                                        <p class="text-danger">{{form.password2.errors}}</p>
+                                    </div>
+                                </div>
+                                <p style="margin: auto;display:block;" class="text-center">Or</p>
+                                <br>
+                                <div class="col-12">
+                                    <button type="button" onclick="window.location = loc"  class="btn btn-block  btn-outline-primary" style="width:100%;height:50px">Contuniue With Google</button>
+                                </div>
+                            
+                                <p style="margin: auto;display:block;" class="text-center">Or</p>
+                                <br>
+                                <div class="col-12">
+                                    <button type="button" onclick="window.location = 'login'"  class="btn btn-block  btn-outline-dark" style="width:100%;height:50px">Already have an account</button>
+                                </div>
+                            
+                                <br><br><br>
+          
+                                <div class="col-12">
+                                    <button style="width: 100px;display:block;margin:auto"  type="submit" class="btn btn-outline-success text-center">Register</button>
+                                </div>
+
+                             
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+  
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="{%static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{%static 'js/popper.min.js' %} "></script>
+    <!-- Bootstrap js -->
+    <script src="{%static 'js/bootstrap.min.js' %} "></script>
+    <!-- Plugins js -->
+    <script src="{%static 'js/plugins.js' %} "></script>
+
+    <script src="{%static 'js/active.js' %} "></script>
+
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>World - Blog &amp; Magazine Template</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{%static 'img/core-img/favicon.ico' %}">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{%static 'style.css' %} ">
+</head>
+<body>
+
+    {%block content%}
+
+    {%endblock%}
+
+        <!-- ***** Footer Area Start ***** -->
+        <footer class="footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="footer-single-widget">
+                            <a href="#"><img src="{%static 'img/core-img/logo.png' %}" alt=""></a>
+                            <div class="copywrite-text mt-30">
+                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="footer-single-widget">
+                            <ul class="footer-menu d-flex justify-content-between">
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Fashion</a></li>
+                                <li><a href="#">Lifestyle</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">Gadgets</a></li>
+                                <li><a href="#">Video</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="footer-single-widget">
+                            <h5>Subscribe</h5>
+                            <form action="#" method="post">
+                                <input type="email" name="email" id="eemail" placeholder="Enter your mail">
+                                <button type="button"><i class="fa fa-arrow-right"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- ***** Footer Area End ***** -->
+
+    
+    <script>
+        const __page__ = '{{page}}'
+        
+        function getCookie(name) {
+
+            // Split cookie string and get all individual name=value pairs in an array
+    
+            var cookieArr = document.cookie.split(";");
+    
+            // Loop through the array elements
+    
+            for (var i = 0; i < cookieArr.length; i++) {
+    
+                var cookiePair = cookieArr[i].split("=");
+    
+                /* Removing whitespace at the beginning of the cookie name
+    
+                and compare it with the given string */
+    
+                if (name == cookiePair[0].trim()) {
+    
+                    // Decode the cookie value and return
+    
+                    return decodeURIComponent(cookiePair[1]);
+    
+                }
+            }
+        }
+    
+    
+        const csrftoken = getCookie('csrftoken')
+      
+    </script>
+        
+
+
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="{%static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{%static 'js/popper.min.js' %} "></script>
+    <!-- Bootstrap js -->
+    <script src="{%static 'js/bootstrap.min.js' %} "></script>
+    <!-- Plugins js -->
+    <script src="{%static 'js/plugins.js' %} "></script>
+    
+    {%if page == 'search'%}
+        <script src="{%static 'js/search.js' %} "></script>
+    {%endif%}
+
+    {%if page == 'home' %}
+        <script src="{%static 'js/home_page.js' %} "></script>
+    {%endif%}
+
+    {%if page == 'category' or page == 'tag'%}
+        <script src="{%static 'js/category.js' %} "></script>
+    {%endif%}
+
+    {%if page == 'blog'%}
+        <script src="{%static 'js/comments.js' %}"></script>
+    {%endif%}
+
+    {%if page == 'admin'%}
+        <script src="{%static 'js/admin.js' %}"></script>
+    {%endif%}
+
+    <script src="{%static 'js/active.js' %} "></script>
+</body>
+
+</html>
